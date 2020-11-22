@@ -4,8 +4,9 @@
  * and open the template in the editor.
  */
 package Control;
+
+import DAO.UsuarioDAO;
 import entidad.Usuario;
-import static frontera.FramePrincipal.sistema;
 
 /**
  *
@@ -13,6 +14,8 @@ import static frontera.FramePrincipal.sistema;
  */
 public class ValidarLogin {
 
+    private UsuarioDAO dao = new UsuarioDAO();
+    
     public ValidarLogin() {
     }
     
@@ -23,11 +26,14 @@ public class ValidarLogin {
         if(!verificarLongitudPassword (usuario.getPassword())){
             return("Longitud contrasena incorrecta");
         }
-        for (Usuario u: sistema.getUsuarios()){
+    /*    for (Usuario u: sistema.getUsuarios()){
             if(u.getNombre().equals(usuario.getNombre()) && 
                u.getPassword().equals(usuario.getPassword())){
                 return ("Bienvenido");
             }
+        } */
+        if (dao.leer(usuario) != null){
+            return ("Bienvenido");
         }
         return ("Datos incorrectos");
     }
